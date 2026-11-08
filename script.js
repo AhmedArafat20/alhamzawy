@@ -1,16 +1,25 @@
-const menuToggle = document.getElementById('menuToggle');
-const mainNav = document.getElementById('mainNav');
 
-menuToggle.addEventListener('click', () => {
-  const isOpen = mainNav.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+// فتح وإغلاق قائمة الموبايل
+menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
 });
 
-mainNav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    mainNav.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-  });
+// إغلاق القائمة عند الضغط على أي رابط
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+    });
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+// إغلاق القائمة عند الضغط خارجها
+document.addEventListener("click", (event) => {
+    if (
+        !navLinks.contains(event.target) &&
+        !menuToggle.contains(event.target)
+    ) {
+        navLinks.classList.remove("active");
+    }
+});
